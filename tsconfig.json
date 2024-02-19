@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@middlewares/*": ["./src/modules/middlewares/*"],
+      "@controllers/*": ["./src/modules/controllers/*"],
+      "@services/*": ["./src/modules/services/*"],
+      "@models/*": ["./src/modules/models/*"],
+      "@repositories/*": ["./src/modules/repositories/*"]
+    },
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      },
+      {
+        "transform": "typescript-transform-paths",
+        "afterDeclarations": true
+      }
+    ]
+  }
+}
