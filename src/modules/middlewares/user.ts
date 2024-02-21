@@ -1,5 +1,5 @@
 import { errorMessage } from "@src/constants/messages/errorMessages";
-import { body, validationResult } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import { userRoles } from "@src/constants/constants";
 import UserRepository from "@repositories/user";
@@ -110,6 +110,19 @@ const UserValidator = {
       .withMessage(errorMessage.userIdRequired)
       .isMongoId()
       .withMessage(errorMessage.invalidIdType),
+    (req: Request, res: Response, next: NextFunction) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(HttpStatus.UNPROCESSABLE_ENTITY).json({ errors });
+      }
+      next();
+    },
+  ],
+  verifyEmail: [
+    param("token")
+      .trim()
+      .notEmpty()
+      .withMessage(errorMessage.verificationTokenMissing),
     (req: Request, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {

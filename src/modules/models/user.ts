@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       enum: [userRoles.ADMIN, userRoles.PROJECT_MANAGER, userRoles.DEVELOPER],
     },
+    isVerified: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },

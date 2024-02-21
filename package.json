@@ -18,7 +18,8 @@
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
-    "mongoose": "^8.1.1"
+    "mongoose": "^8.1.1",
+    "nodemailer": "^6.9.9"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -26,6 +27,7 @@
     "@types/express-validator": "^3.0.0",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.11.17",
+    "@types/nodemailer": "^6.4.14",
     "nodemon": "^3.0.3",
     "ts-patch": "^3.1.2",
     "tsconfig-paths": "^4.2.0",

@@ -1,4 +1,4 @@
-import { AuthenticateUser } from "../middlewares/auth";
+import { AuthenticateUser } from "@middlewares/auth";
 import UserController from "@controllers/user";
 import UserValidator from "@middlewares/user";
 import express from "express";
@@ -6,6 +6,11 @@ import express from "express";
 const router = express.Router();
 
 router.post("/user/create", UserValidator.create, UserController.createUser);
+router.get(
+  "/user/verify-user/:token",
+  UserValidator.verifyEmail,
+  UserController.verifyEmail
+);
 router.post("/user/login", UserValidator.login, UserController.login);
 router.post(
   "/user/refresh-token",

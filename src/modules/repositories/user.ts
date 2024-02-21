@@ -1,5 +1,6 @@
 import User from "@models/user";
 import { IUser } from "@src/types";
+import EmailToken from "@models/emailToken";
 
 class UserRepository {
   async createUser(userDetails: IUser) {
@@ -14,6 +15,13 @@ class UserRepository {
         return ret;
       },
     });
+  }
+
+  async createEmailVerificationToken(userId: string, token: string) {
+    return await new EmailToken({
+      userId: userId,
+      token: token,
+    }).save();
   }
 
   async findByID(userID: string) {
@@ -34,6 +42,36 @@ class UserRepository {
       { role: newRole },
       { new: true }
     );
+  }
+
+  async verifyUser(email: string) {
+    return User.findOneAndUpdate(
+      { email: email },
+      { $set: { isVerified: true } },
+      { new: true }
+    );
+  }
+
+  async deleteEmailTokenByToken(token: string) {
+    return await EmailToken.findOneAndDelete({
+      token: token,
+    });
+  }
+
+  async deleteEmailTokenById(id: string) {
+    return await EmailToken.findByIdAndDelete(id);
+  }
+
+  async findEmailTokenById(userId: string) {
+    return await EmailToken.findOne({
+      userId: userId,
+    });
+  }
+
+  async findEmailTokenByToken(token: string) {
+    return await EmailToken.findOne({
+      token: token,
+    });
   }
 }
 

@@ -4,4 +4,5 @@ export const successMessage = {
   userLoggedIn: "User has successfully logged in",
   userLoggedOut: "Use has been successfully logged out",
   newAccessTokenGenerated: "New access token has been successfully generated",
+  userIsVerified: "User has been successfully verified",
 };

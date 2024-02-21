@@ -14,9 +14,10 @@ export const errorMessage = {
   createUserError: "An error occurred while attempting to create a user",
   wrongPassword: "Passwords do not match!",
   userNotExists: "User does not exist!",
+  userNotVerified: "User not verified yet, please check your email",
   refreshTokenRequired: "Refresh token required",
   userNotCreated: "User could not be created!",
-  invalidToken: "Invalid refresh token",
+  invalidToken: "Invalid token",
   tokenExpired: "Token has been expired",
   unauthorized: "User is unauthorized",
   userIdRequired: "User ID is required",
@@ -25,4 +26,5 @@ export const errorMessage = {
   adminRoleCanNotBeChanged: "The role of ADMIN can not be changed",
   userRoleAlreadyPM: "The role of the user is already PROJECT MANAGER",
   tokenDoesNotExist: "Token does not exist",
+  verificationTokenMissing: "User verification token is missing",
 };

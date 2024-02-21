@@ -1,9 +1,16 @@
 import { errorMessage } from "@src/constants/messages/errorMessages";
-import { generateTokens, verifyRefreshToken } from "@src/utils";
+import {
+  generateEmailToken,
+  generateTokens,
+  regenerateEmailToken,
+  verifyEmailToken,
+  verifyRefreshToken,
+} from "@src/utils/tokens";
 import { BadRequestError } from "@src/responses/errorHandler";
 import { AuthData, userRoles } from "@src/constants/constants";
+import { sendEmailVerificationMail } from "@src/utils/emails";
 import UserRepository from "@repositories/user";
-import UserToken from "../models/userToken";
+import UserToken from "@models/userToken";
 import { IUser, ILogin } from "@src/types";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -26,13 +33,33 @@ export class UserService {
 
     if (!user) throw new BadRequestError(errorMessage.userNotCreated);
 
+    const emailVerificationToken = generateEmailToken(userDetails.email);
+
+    await UserRepository.createEmailVerificationToken(
+      user._id,
+      emailVerificationToken
+    );
+
+    sendEmailVerificationMail(
+      userDetails.email,
+      userDetails.username,
+      emailVerificationToken
+    );
+
     return user;
   }
 
   async login(loginCredentials: ILogin) {
+    let token: string;
     const user = await UserRepository.emailExist(loginCredentials.email);
 
     if (!user) throw new BadRequestError(errorMessage.userNotExists);
+
+    if (!user.isVerified) {
+      token = await regenerateEmailToken(user._id, user.email);
+      sendEmailVerificationMail(user.email, user.username, token);
+      throw new BadRequestError(errorMessage.userNotVerified);
+    }
 
     const verifyPassword = await bcrypt.compare(
       loginCredentials.password,
@@ -95,6 +122,17 @@ export class UserService {
     );
 
     return result;
+  }
+
+  async verifyEmail(token: string) {
+    let isVerified: boolean;
+    const result = await verifyEmailToken(token);
+
+    if (result) isVerified = await UserRepository.verifyUser(result.email);
+
+    if (isVerified) await UserRepository.deleteEmailTokenByToken(token);
+
+    return isVerified;
   }
 }
 

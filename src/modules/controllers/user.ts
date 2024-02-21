@@ -70,6 +70,22 @@ class UserController {
       return next(error);
     }
   }
+
+  async verifyEmail(
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      await UserService.verifyEmail(req.params.token);
+
+      return res.status(HttpStatus.OK).json({
+        message: successMessage.userIsVerified,
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 export default new UserController();
