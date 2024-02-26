@@ -9,6 +9,7 @@ This project aims to facilitate task management and access control across three 
 - **User Creation**: Upon self-registration, users are automatically assigned the "Developer" role. To gain access to the system, users must complete email verification via a confirmation email.
 - **Login**: Authentication is managed through JWT. Non-verified users attempting to log in will receive a follow-up email prompting them to verify their email address.
 - **Admin Privileges**: Administrators have the authority to modify a user's role to that of a project manager.
+- **Projects**: Only ADMIN and PROJECT MANAGERS have the authorization to create projects. They are permitted to upload a maximum of five necessary files for each project.
 
 ## Future Enhancements
 
