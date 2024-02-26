@@ -13,6 +13,12 @@ export interface ILogin {
   password: string;
 }
 
+export interface IProject {
+  title: string;
+  description: string;
+  files?: any[];
+}
+
 export interface AuthenticatedRequest extends Request {
   user?: any;
 }

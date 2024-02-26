@@ -1,8 +1,10 @@
 import { Request, Response, Express, NextFunction } from "express";
 import connectDatabase from "@src/config/db";
-import router from "@src/modules/routes/user";
+import userRouter from "@src/modules/routes/user";
+import projectRouter from "@src/modules/routes/project";
 import express from "express";
 import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config();
 
@@ -11,13 +13,13 @@ const port = process.env.PORT || 5000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(express.static("public"));
+app.use("/uploads", express.static(path.join(__dirname, "..", "uploads")));
 
 //connect to db
 connectDatabase();
 
 // Define other routes
-app.use("/", router);
+app.use("/", userRouter, projectRouter);
 
 // Middleware for error handling
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

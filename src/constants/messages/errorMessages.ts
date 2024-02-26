@@ -27,4 +27,10 @@ export const errorMessage = {
   userRoleAlreadyPM: "The role of the user is already PROJECT MANAGER",
   tokenDoesNotExist: "Token does not exist",
   verificationTokenMissing: "User verification token is missing",
+  projectNameRequired: "Project name is required",
+  projectDescriptionRequired: "Project description is required",
+  allowedFleTypes: "Images,Docs,Pdv,Csv,Excel files Only!",
+  notAuthorizedToCreateProject:
+    "User with the role of 'DEVELOPER' is not authorized to create project",
+  projectAlreadyExist: "Project already exists with this title",
 };
