@@ -6,4 +6,5 @@ export const successMessage = {
   newAccessTokenGenerated: "New access token has been successfully generated",
   userIsVerified: "User has been successfully verified",
   projectCreated: "Project has been successfully created",
+  developersAssigned: "Developers have been successfully assigned to project",
 };

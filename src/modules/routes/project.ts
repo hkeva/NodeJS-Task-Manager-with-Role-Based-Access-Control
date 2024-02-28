@@ -14,4 +14,11 @@ router.post(
   ProjectController.createProject
 );
 
+router.post(
+  "/project/assign-developers",
+  AuthenticateUser,
+  ProjectValidator.assignToProject,
+  ProjectController.assignToProject
+);
+
 export default router;

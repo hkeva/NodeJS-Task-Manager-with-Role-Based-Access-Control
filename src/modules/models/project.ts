@@ -8,6 +8,7 @@ const projectSchema = new mongoose.Schema(
       userId: { type: String, required: true },
     },
     files: [{ type: String }],
+    assigned: [{ type: String }],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
   },

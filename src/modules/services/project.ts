@@ -28,6 +28,29 @@ export class ProjectService {
 
     return await ProjectRepository.createProject(projectDetails);
   }
+
+  async assignToProject(
+    reqUser: IUser,
+    data: { projectID: string; userIDs: string[] }
+  ) {
+    const project = await ProjectRepository.findProjectByID(data.projectID);
+
+    if (!project) throw new BadRequestError(errorMessage.noProjectFound);
+
+    //Project creator himself or Admin can assign to project
+    if (
+      project.createdBy.userId !== reqUser._id ||
+      reqUser.role === userRoles.ADMIN
+    )
+      throw new BadRequestError(errorMessage.notAuthorizedToAssignToProject);
+
+    const uniqueArray = Array.from(new Set(data.userIDs));
+
+    return await ProjectRepository.updateAssignedField(
+      data.projectID,
+      uniqueArray
+    );
+  }
 }
 
 export default new ProjectService();

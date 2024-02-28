@@ -24,6 +24,22 @@ class ProjectController {
       return next(error);
     }
   }
+
+  async assignToProject(
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const result = await ProjectService.assignToProject(req.user, req.body);
+      return res.status(HttpStatus.OK).json({
+        result: result,
+        message: successMessage.developersAssigned,
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 export default new ProjectController();

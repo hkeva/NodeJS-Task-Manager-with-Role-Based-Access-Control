@@ -9,6 +9,18 @@ class ProjectRepository {
   async findProjectByTitle(title: string) {
     return await Project.findOne({ title: title });
   }
+
+  async findProjectByID(id: string) {
+    return await Project.findById(id);
+  }
+
+  async updateAssignedField(projectID: string, assignedIds: string[]) {
+    return await Project.findByIdAndUpdate(
+      projectID,
+      { assigned: assignedIds },
+      { new: true }
+    );
+  }
 }
 
 export default new ProjectRepository();

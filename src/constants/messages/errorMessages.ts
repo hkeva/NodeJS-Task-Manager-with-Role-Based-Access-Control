@@ -32,5 +32,10 @@ export const errorMessage = {
   allowedFleTypes: "Images,Docs,Pdv,Csv,Excel files Only!",
   notAuthorizedToCreateProject:
     "User with the role of 'DEVELOPER' is not authorized to create project",
+  notAuthorizedToAssignToProject: "User is not authorized to assign to project",
   projectAlreadyExist: "Project already exists with this title",
+  arrayType: "The type must be an array",
+  projectIdRequired: "Project ID is required",
+  userIdsRequired: "User IDs are required",
+  noProjectFound: "No project has been found associated with this ID",
 };
