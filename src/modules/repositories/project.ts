@@ -6,8 +6,11 @@ class ProjectRepository {
     return await new Project(projectDetails).save();
   }
 
-  async findProjectByTitle(title: string) {
-    return await Project.findOne({ title: title });
+  async findProjectByTitle(title: string, projectID?: string) {
+    return await Project.findOne({
+      title: title,
+      _id: { $ne: projectID },
+    });
   }
 
   async findProjectByID(id: string) {
@@ -20,6 +23,13 @@ class ProjectRepository {
       { assigned: assignedIds },
       { new: true }
     );
+  }
+
+  async upsertProjectData(data: any) {
+    return await Project.findOneAndUpdate({ _id: data.projectID }, data, {
+      upsert: true,
+      new: true,
+    });
   }
 }
 

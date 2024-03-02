@@ -38,4 +38,7 @@ export const errorMessage = {
   projectIdRequired: "Project ID is required",
   userIdsRequired: "User IDs are required",
   noProjectFound: "No project has been found associated with this ID",
+  stringType: "The type must string",
+  notAuthorizedToUpdateProject: "User is not authorized to update project",
+  projectTitleExists: "A project with this title already exists",
 };

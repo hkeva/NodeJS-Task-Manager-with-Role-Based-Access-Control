@@ -7,4 +7,6 @@ export const successMessage = {
   userIsVerified: "User has been successfully verified",
   projectCreated: "Project has been successfully created",
   developersAssigned: "Developers have been successfully assigned to project",
+  projectUpdated: "Project has been successfully updated",
+  dataNotUpdated: "Data has not been provided for an update",
 };

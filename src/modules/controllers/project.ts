@@ -40,6 +40,29 @@ class ProjectController {
       return next(error);
     }
   }
+
+  async updateProject(
+    req: AuthenticatedRequest,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const result = await ProjectService.updateProject(
+        req.user,
+        req.body,
+        req.files
+      );
+
+      return res.status(HttpStatus.OK).json({
+        result: result,
+        message: Object.keys(result).length
+          ? successMessage.projectUpdated
+          : successMessage.dataNotUpdated,
+      });
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 export default new ProjectController();

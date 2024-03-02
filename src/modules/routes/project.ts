@@ -21,4 +21,12 @@ router.post(
   ProjectController.assignToProject
 );
 
+router.post(
+  "/project/update",
+  AuthenticateUser,
+  multerUploadMiddleware,
+  ProjectValidator.update,
+  ProjectController.updateProject
+);
+
 export default router;
