@@ -3,38 +3,36 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const sendEmailVerificationMail = async (
+export const sendEmailToMe = async (
+  name: string,
   email: string,
-  username: string,
-  token: string
+  message: string
 ) => {
-  const verificationLink = `${process.env.LOCAL_URI}/user/verify-user/${token}`;
   const mailOptions = {
-    from: "TASK MANAGEMENT APP <emails.handler@gmail.com> ",
+    from: `${name} <${email}> `,
+    to: "humayraeva@gmail.com",
+    subject: `Hello from ${name}`,
+    text: `Name: ${name}\nEmail: ${email}\n${message}`,
+  };
+
+  const replyMailOptions = {
+    from: `Humayra Khatun <humayraeva@gmail.com> `,
     to: email,
-    subject: "Please verify you email",
-    html: `
-      <table style="max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; border-collapse: collapse;">
-      <tr>
-          <td style="background-color: #007bff; color: #fff; padding: 10px; text-align: center;">
-              <h2>Email Verification</h2>
-          </td>
-      </tr>
-      <tr>
-          <td style="padding: 20px;">
-              <p>Dear ${username},</p>
-              <p>Please click the button below to verify your email address:</p>
-              <p>&nbsp;</p>
-              <p style="text-align: center;">
-                  <a href=${verificationLink} style="background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Verify Email</a>
-              </p>
-              <p>&nbsp;</p>
-              <p>If you didn't request this, please ignore this email.</p>
-              <p>Thanks,<br> TASK MANAGEMENT APP</p>
-          </td>
-      </tr>
-  </table>
-      `,
+    subject: `Thank You for Reaching Out`,
+    html: `<body style="font-family: Arial, sans-serif;">
+    <p style="margin: 5px 0;">Dear ${name},</p>
+
+    <p style="margin: 0;">
+      I hope this email finds you well. I wanted to take a moment to express my gratitude for reaching out to me. Your message is genuinely appreciated.
+    </p>
+    <br/>
+     <p style="margin: 0;">
+      Thank you for taking the time to connect with me. I value your communication and look forward to further interactions.
+    </p>
+    <br/>
+    <p style="margin: 0;">Warm regards,</p>
+    <p style="margin: 0;">Humayra Khatun</p>
+  </body>`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -42,6 +40,14 @@ export const sendEmailVerificationMail = async (
       console.log(error);
     } else {
       console.log("Email sent: " + info.response);
+    }
+  });
+
+  transporter.sendMail(replyMailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Email replied: " + info.response);
     }
   });
 };
